@@ -1,0 +1,24 @@
+.header {
+  text-align: center;
+  padding: 1rem;
+  background-color: #f4bdde;
+}
+
+.dark .header {
+  background-color: #444;
+}
+
+button {
+  margin-top: 0.5rem;
+  padding: 0.4rem 1rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background-color: #cfdff7;
+}
+
+.dark button {
+  background-color: #666;
+  color: white;
+}
