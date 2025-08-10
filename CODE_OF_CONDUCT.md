@@ -105,7 +105,7 @@ This Code of Conduct applies to:
 
 ## 📩 Reporting  
 If you witness or experience unacceptable behavior, please report it to:  
-📧 **riti.codes@gmail.com**  
+📧 **riti82270@gmail.com**  
 
 Your report should include:  
 - A clear description of the incident  
