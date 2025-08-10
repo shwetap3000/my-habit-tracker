@@ -1,7 +1,7 @@
 .header {
   text-align: center;
   padding: 1rem;
-  background-color: #f8a5d7;
+  background-color: #f4bdde;
 }
 
 .dark .header {
@@ -16,8 +16,8 @@ button {
   border: none;
   cursor: pointer;
   background-color: #cfdff7;
-  box-shadow: 4px 4px 5px rgb(34, 8, 50);
 }
+
 .dark button {
   background-color: #666;
   color: white;
