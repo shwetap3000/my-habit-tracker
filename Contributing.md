@@ -25,8 +25,6 @@ We welcome all kinds of contributions:
    ```bash
    git clone https://github.com/<your-username>/my-daily-habits-tracker.git
    cd my-daily-habits-tracker
-   git clone https://github.com/<your-username>/my-daily-habits-tracker.git
-   cd my-daily-habits-tracker
    ```
 3. **Create a new branch**
    ```bash
