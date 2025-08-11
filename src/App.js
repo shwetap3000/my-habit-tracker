@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import TrackerCard from './components/TrackerCard';
 import Header from './components/Header';
 import TreeGrowth from './components/TreeGrowth';
+import HabitTrackerDemo from './components/HabitTrackerDemo';
 import './App.css';
 import './components/Footer'
 import Footer from './components/Footer';
@@ -25,38 +26,39 @@ const habitList = [
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
-  const [completed, setCompleted] = useState({});
+  const [habitIntensities, setHabitIntensities] = useState({
+    'Morning Exercise': {
+      Sun: 0, Mon: 0, Tue: 0, Wed: 0, Thu: 0, Fri: 0, Sat: 0
+    },
+    'Reading': {
+      Sun: 0, Mon: 0, Tue: 0, Wed: 0, Thu: 0, Fri: 0, Sat: 0
+    },
+    'Meditation': {
+      Sun: 0, Mon: 0, Tue: 0, Wed: 0, Thu: 0, Fri: 0, Sat: 0
+    }
+  });
 
   const toggleDarkMode = () => setDarkMode(!darkMode);
 
-  const handleCompletion = (habit, day) => {
-    setCompleted(prev => ({
+  const handleIntensityChange = (habitName, day, newIntensity) => {
+    setHabitIntensities(prev => ({
       ...prev,
-      [habit]: {
-        ...prev[habit],
-        [day]: !prev[habit]?.[day],
-      },
+      [habitName]: {
+        ...prev[habitName],
+        [day]: newIntensity
+      }
     }));
   };
 
-  const totalCompleted = Object.values(completed).reduce((sum, days) => {
-    return sum + Object.values(days).filter(Boolean).length;
+  const totalCompleted = Object.values(habitIntensities).reduce((sum, days) => {
+    return sum + Object.values(days).filter(val => val > 0).length;
   }, 0);
 
   return (
     <div className={`app-container ${darkMode ? 'dark' : ''}`}>
       <Header toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
-      <div className="trackers">
-        {habitList.map((habit, idx) => (
-          <TrackerCard
-            key={idx}
-            habit={habit}
-            completedDays={completed[habit] || {}}
-            onCheck={(day) => handleCompletion(habit, day)}
-          />
-        ))}
-      </div>
-      <TreeGrowth completedCount={totalCompleted} />
+      <HabitTrackerDemo onIntensityChange={handleIntensityChange} habitIntensities={habitIntensities} />
+      
       <Footer></Footer>
     </div>
 

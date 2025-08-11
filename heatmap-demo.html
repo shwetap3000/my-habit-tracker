@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Habit Tracker - Heatmap Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .habit-tracker {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+
+        .habit-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .heatmap-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .heatmap-day {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 70px;
+            height: 70px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            border: 2px solid transparent;
+            user-select: none;
+        }
+
+        .heatmap-day:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+
+        .heatmap-day:active {
+            transform: translateY(0);
+        }
+
+        .day-label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .intensity-indicator {
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        /* Intensity Color Classes */
+        .intensity-0 {
+            background-color: #f7fafc;
+            color: #a0aec0;
+            border-color: #e2e8f0;
+        }
+
+        .intensity-1 {
+            background-color: #c6f6d5;
+            color: #22543d;
+            border-color: #9ae6b4;
+        }
+
+        .intensity-2 {
+            background-color: #9ae6b4;
+            color: #22543d;
+            border-color: #68d391;
+        }
+
+        .intensity-3 {
+            background-color: #68d391;
+            color: #ffffff;
+            border-color: #48bb78;
+        }
+
+        .intensity-4 {
+            background-color: #38a169;
+            color: #ffffff;
+            border-color: #2f855a;
+        }
+
+        .instructions {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            color: white;
+            margin-top: 30px;
+        }
+
+        .instructions h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .instructions ul {
+            list-style: none;
+            line-height: 1.8;
+        }
+
+        .instructions li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .instructions li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #ffd700;
+        }
+
+        @media (max-width: 768px) {
+            .heatmap-day {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .day-label {
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .heatmap-day {
+                width: 55px;
+                height: 55px;
+            }
+            
+            .day-label {
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Weekly Habit Tracker - Heatmap Demo</h1>
+        
+        <div class="habit-tracker">
+            <h2 class="habit-title">Morning Exercise</h2>
+            <div class="heatmap-container" id="exercise-tracker">
+                <!-- Days will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <div class="habit-tracker">
+            <h2 class="habit-title">Reading</h2>
+            <div class="heatmap-container" id="reading-tracker">
+                <!-- Days will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <div class="habit-tracker">
+            <h2 class="habit-title">Meditation</h2>
+            <div class="heatmap-container" id="meditation-tracker">
+                <!-- Days will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3>How to Use:</h3>
+            <ul>
+                <li>Click on any day square to cycle through completion levels (0-4)</li>
+                <li>Color intensity indicates completion level</li>
+                <li>Hover effects provide smooth transitions</li>
+                <li>Level 0: Not started (light gray)</li>
+                <li>Level 1: Low completion (light green)</li>
+                <li>Level 2: Medium completion (medium green)</li>
+                <li>Level 3: High completion (dark green)</li>
+                <li>Level 4: Complete (darkest green)</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        
+        function createHeatmap(containerId, initialData = null) {
+            const container = document.getElementById(containerId);
+            const intensities = initialData || days.reduce((acc, day) => ({ ...acc, [day]: 0 }), {});
+            
+            function render() {
+                container.innerHTML = '';
+                days.forEach(day => {
+                    const dayElement = document.createElement('div');
+                    dayElement.className = `heatmap-day intensity-${intensities[day]}`;
+                    dayElement.innerHTML = `
+                        <div class="day-label">${day}</div>
+                        <div class="intensity-indicator">${intensities[day]}</div>
+                    `;
+                    
+                    dayElement.addEventListener('click', () => {
+                        intensities[day] = (intensities[day] + 1) % 5;
+                        render();
+                    });
+                    
+                    container.appendChild(dayElement);
+                });
+            }
+            
+            render();
+            return intensities;
+        }
+        
+        // Initialize heatmaps
+        createHeatmap('exercise-tracker', {
+            Sun: 3, Mon: 4, Tue: 2, Wed: 4, Thu: 3, Fri: 2, Sat: 4
+        });
+        
+        createHeatmap('reading-tracker', {
+            Sun: 2, Mon: 1, Tue: 3, Wed: 4, Thu: 2, Fri: 3, Sat: 1
+        });
+        
+        createHeatmap('meditation-tracker', {
+            Sun: 4, Mon: 3, Tue: 4, Wed: 2, Thu: 3, Fri: 4, Sat: 3
+        });
+    </script>
+</body>
+</html>
