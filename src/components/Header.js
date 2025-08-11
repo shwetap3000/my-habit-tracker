@@ -10,11 +10,11 @@ function Header({ toggleDarkMode, darkMode }) {
   if (!ready) return null;
 
   return (
-    <div className="header">
+    <div className="header headerDisplay">
       <h1>{t("header.title")}</h1>
       <div className="header-controls">
         <LanguageSwitcher />
-        <button className="mode-toggle" onClick={toggleDarkMode}>
+        <button className="mode-toggle toggleTransition" onClick={toggleDarkMode}>
           {darkMode ? t("header.lightMode") : t("header.darkMode")}
         </button>
       </div>

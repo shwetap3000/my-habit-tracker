@@ -2,6 +2,9 @@
   text-align: center;
   padding: 1rem;
   background-color: #f8a5d7;
+}
+
+.headerDisplay {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -34,10 +37,13 @@
   cursor: pointer;
   background-color: #cfdff7;
   box-shadow: 4px 4px 5px rgb(34, 8, 50);
+}
+
+.toggleTransition {
   transition: all 0.3s ease;
 }
 
-.mode-toggle:hover {
+.toggleTransition:hover {
   transform: translateY(-1px);
   background-color: #b8d4f7;
 }
