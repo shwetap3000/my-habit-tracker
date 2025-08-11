@@ -21,7 +21,14 @@ const habitList = [
   'Steps',
   'Self-Care',
   'Goal Setting',
-  'Skincare'
+  'Skincare',
+  'Plant Care/Watering',
+  'Gym Workout',
+  'Focused Study Session',
+  'Daily Journaling',
+  'Gardening',
+  'Meal Prep',
+  'Hydration Tracking'
 ];
 
 function App() {
