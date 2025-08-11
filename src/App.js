@@ -3,7 +3,8 @@ import TrackerCard from './components/TrackerCard';
 import Header from './components/Header';
 import TreeGrowth from './components/TreeGrowth';
 import './App.css';
-
+import './components/Footer'
+import Footer from './components/Footer';
 const habitList = [
   'Wake Up Time',
   'Water Intake',
@@ -56,7 +57,9 @@ function App() {
         ))}
       </div>
       <TreeGrowth completedCount={totalCompleted} />
+      <Footer></Footer>
     </div>
+
   );
 }
 
