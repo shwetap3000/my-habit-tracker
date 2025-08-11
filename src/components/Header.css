@@ -29,7 +29,7 @@
   gap: 1rem;
 }
 
-.mode-toggle {
+.mode-toggle  {
   margin-top: 0;
   padding: 0.4rem 1rem;
   font-size: 1rem;
@@ -47,8 +47,8 @@
 .toggleTransition:hover {
   transform: translateY(-1px);
   background-color: #b8d4f7;
+  box-shadow: 4px 4px 5px rgb(34, 8, 50);
 }
-
 .dark button {
   background-color: #666;
   color: white;
