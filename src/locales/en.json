@@ -1,0 +1,43 @@
+{
+  "header": {
+    "title": "🌸 My Weekly Habit Tracker",
+    "lightMode": "☀️ Light Mode",
+    "darkMode": "🌙 Dark Mode"
+  },
+  "habits": {
+    "wakeUpTime": "Wake Up Time",
+    "waterIntake": "Water Intake",
+    "sleep": "Sleep",
+    "meditation": "Meditation",
+    "exercise": "Exercise",
+    "healthyEating": "Healthy Eating",
+    "gratitude": "Gratitude",
+    "journaling": "Journaling",
+    "screenTime": "Screen Time",
+    "study": "Study",
+    "workout": "Workout",
+    "steps": "Steps",
+    "selfCare": "Self-Care",
+    "goalSetting": "Goal Setting",
+    "skincare": "Skincare"
+  },
+  "days": {
+    "sun": "Sun",
+    "mon": "Mon",
+    "tue": "Tue",
+    "wed": "Wed",
+    "thu": "Thu",
+    "fri": "Fri",
+    "sat": "Sat"
+  },
+  "languageSwitcher": {
+    "english": "English",
+    "hindi": "हिंदी",
+    "arabic": "العربية"
+  },
+  "treeGrowth": {
+    "title": "Your Habit Tree",
+    "habitsCompleted": "{{count}} habits completed this week!",
+    "habitsCompletedPlural": "{{count}} habits completed this week!"
+  }
+}
