@@ -1,52 +1,12 @@
-import React, { useState } from 'react';
-import TrackerCard from './components/TrackerCard';
-import Header from './components/Header';
-import TreeGrowth from './components/TreeGrowth';
-import HabitTrackerDemo from './components/HabitTrackerDemo';
-import './App.css';
-import Footer from './components/Footer';
+import React from "react";
+import HabitTrackerApp from "./components/HabitTrackerApp";
+import "./App.css";
 
-const habitList = [
-  'Wake Up Time',
-  'Water Intake',
-  'Sleep',
-  'Meditation',
-  'Exercise',
-  'Healthy Eating',
-  'Gratitude',
-  'Journaling',
-  'Screen Time',
-  'Study',
-  'Workout',
-  'Steps',
-  'Self-Care',
-  'Goal Setting',
-  'Skincare',
-  'Plant Care/Watering',
-  'Gym Workout',
-  'Focused Study Session',
-  'Daily Journaling',
-  'Gardening',
-  'Meal Prep',
-  'Hydration Tracking'
-];
-
+// Simplified App component - let i18next handle initialization internally
 function App() {
-  const [habits, setHabits] = useState(habitList);
-
-  return (
-    <div className="app-container">
-      <Header />
-      <TreeGrowth />
-      <HabitTrackerDemo habits={habits} />
-      <div className="tracker-cards">
-        {habits.map((habit, index) => (
-          <TrackerCard key={index} habit={habit} />
-        ))}
-      </div>
-      <Footer />
-    </div>
-  );
+  // Render the main app directly - i18next will handle loading states
+  return <HabitTrackerApp />;
 }
 
 export default App;
+

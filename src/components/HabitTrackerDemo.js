@@ -6,12 +6,7 @@ const demoHabits = [
   'Reading',
   'Meditation',
   'Water Intake',
-  'Sleep Schedule',
-  'Plant Care/Watering',
-  'Gym Workout',
-  'Focused Study Session',
-  'Daily Journaling',
-  'Gardening'
+  'Sleep Schedule'
 ];
 
 function HabitTrackerDemo() {
