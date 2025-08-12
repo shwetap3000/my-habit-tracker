@@ -1,0 +1,146 @@
+/* Weekly Habit Heatmap Styles */
+
+.weekly-habit-heatmap {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  transition: all 0.3s ease;
+}
+
+.habit-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.heatmap-container {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.heatmap-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  border: 2px solid transparent;
+  user-select: none;
+}
+
+.heatmap-day:hover,
+.heatmap-day:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+
+.day-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.intensity-indicator {
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+/* Intensity Color Classes */
+.intensity-0 {
+  background-color: #f7fafc;
+  color: #a0aec0;
+  border-color: #e2e8f0;
+}
+
+.intensity-1 {
+  background-color: #c6f6d5;
+  color: #22543d;
+  border-color: #9ae6b4;
+}
+
+.intensity-2 {
+  background-color: #9ae6b4;
+  color: #22543d;
+  border-color: #68d391;
+}
+
+.intensity-3 {
+  background-color: #68d391;
+  color: #ffffff;
+  border-color: #48bb78;
+}
+
+.intensity-4 {
+  background-color: #38a169;
+  color: #ffffff;
+  border-color: #2f855a;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .heatmap-container {
+    gap: 6px;
+  }
+  
+  .heatmap-day {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .day-label {
+    font-size: 0.7rem;
+  }
+  
+  .intensity-indicator {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .heatmap-container {
+    gap: 4px;
+  }
+  
+  .heatmap-day {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .day-label {
+    font-size: 0.65rem;
+  }
+  
+  .intensity-indicator {
+    font-size: 0.75rem;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .weekly-habit-heatmap {
+    background: #2d3748;
+  }
+  
+  .habit-title {
+    color: #ffffff;
+  }
+  
+  .intensity-0 {
+    background-color: #4a5568;
+    color: #a0aec0;
+    border-color: #718096;
+  }
+}

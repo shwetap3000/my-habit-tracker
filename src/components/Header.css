@@ -2,14 +2,35 @@
   text-align: center;
   padding: 1rem;
   background-color: #f8a5d7;
+
+}
+
+.headerDisplay {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .dark .header {
   background-color: #444;
 }
 
-button {
-  margin-top: 0.5rem;
+.header h1 {
+  margin: 0;
+  flex: 1;
+  text-align: center;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.mode-toggle  {
+  margin-top: 0;
   padding: 0.4rem 1rem;
   font-size: 1rem;
   border-radius: 8px;
@@ -18,7 +39,43 @@ button {
   background-color: #cfdff7;
   box-shadow: 4px 4px 5px rgb(34, 8, 50);
 }
+
+.toggleTransition {
+  transition: all 0.3s ease;
+}
+
+.toggleTransition:hover {
+  transform: translateY(-1px);
+  background-color: #b8d4f7;
+  box-shadow: 4px 4px 5px rgb(34, 8, 50);
+}
 .dark button {
   background-color: #666;
   color: white;
+}
+
+.dark .mode-toggle {
+  background-color: #666;
+  color: white;
+}
+
+.dark .mode-toggle:hover {
+  background-color: #777;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .header h1 {
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .header-controls {
+    justify-content: center;
+  }
 }
