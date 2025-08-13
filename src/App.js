@@ -4,9 +4,10 @@ import TrackerCard from './components/TrackerCard';
 import Header from './components/Header';
 import TreeGrowth from './components/TreeGrowth';
 import './App.css';
-import './components/Footer'
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
+import HabitTrackerApp from "./components/HabitTrackerApp";
+
 const habitList = [
   'Wake Up Time',
   'Water Intake',
@@ -24,11 +25,7 @@ const habitList = [
   'Goal Setting',
   'Skincare'
 ];
-import React from "react";
-import HabitTrackerApp from "./components/HabitTrackerApp";
-import "./App.css";
 
-// Simplified App component - let i18next handle initialization internally
 function App() {
   const [darkMode, setDarkMode] = useState(false);
   const [completed, setCompleted] = useState({});
@@ -49,8 +46,8 @@ function App() {
     return sum + Object.values(days).filter(Boolean).length;
   }, 0);
   
-  return(
-  <Router>
+  return (
+    <Router>
       <div className={`app-container ${darkMode ? "dark" : ""}`}>
         <Header toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
         <Navbar />
@@ -74,18 +71,14 @@ function App() {
             }
           />
 
-
           {/* Contact Page */}
-          <Route path="/Footer" element={<Footer.js />} />
+          <Route path="/Footer" element={<Footer />} />
         </Routes>
 
         <Footer />
       </div>
     </Router>
   );
-  // Render the main app directly - i18next will handle loading states
-  return <HabitTrackerApp />;
 }
 
 export default App;
-
