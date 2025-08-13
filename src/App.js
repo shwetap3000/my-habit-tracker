@@ -7,6 +7,9 @@ import './App.css';
 import './components/Footer'
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
+import HabitTrackerApp from "./components/HabitTrackerApp";
+import About from './components/About';
+
 const habitList = [
   'Wake Up Time',
   'Water Intake',
@@ -24,9 +27,8 @@ const habitList = [
   'Goal Setting',
   'Skincare'
 ];
-import React from "react";
-import HabitTrackerApp from "./components/HabitTrackerApp";
-import "./App.css";
+// import React from "react";
+// import "./App.css";
 
 // Simplified App component - let i18next handle initialization internally
 function App() {
@@ -77,6 +79,10 @@ function App() {
 
           {/* Contact Page */}
           <Route path="/Footer" element={<Footer.js />} />
+        
+
+        {/* About Page */}
+        <Route path="/About" element={<About />} />
         </Routes>
 
         <Footer />
