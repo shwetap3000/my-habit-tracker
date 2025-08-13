@@ -10,6 +10,17 @@ import Navbar from './components/Navbar';
 import HabitTrackerApp from "./components/HabitTrackerApp";
 import "./App.css";
 
+
+const handleReset = () => {
+  if (window.confirm("Are you sure you want to reset everything?")) {
+    window.location.reload();
+  }
+};
+
+
+import About from './components/About';
+import Foot from './components/Foot';
+
 const habitList = [
   'Wake Up Time',
   'Water Intake',
@@ -28,7 +39,6 @@ const habitList = [
   'Skincare'
 ];
 // import React from "react";
-
 
 // Simplified App component - let i18next handle initialization internally
 function App() {
@@ -78,10 +88,15 @@ function App() {
 
 
           {/* Contact Page */}
-          <Route path="/Footer" element={<Footer.js />} />
+          <Route path="/Footer" element={<Footer />} />
+        
+
+        {/* About Page */}
+        <Route path="/About" element={<About />} />
         </Routes>
 
         <Footer />
+        <Foot />
       </div>
     </Router>
   );

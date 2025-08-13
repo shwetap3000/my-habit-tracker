@@ -1,0 +1,42 @@
+.foot {
+  background: #222;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.foot-links {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+.foot-links li {
+  display: inline;
+  margin: 0 15px;
+}
+
+.foot-links a {
+  color: white;
+  text-decoration: none;
+}
+
+.foot-links a:hover {
+  text-decoration: underline;
+}
+
+.foot-socials a {
+  margin: 0 10px;
+  color: #ccc;
+  text-decoration: none;
+}
+
+.foot-socials a:hover {
+  color: white;
+}
+
+.foot-copy {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #aaa;
+}
