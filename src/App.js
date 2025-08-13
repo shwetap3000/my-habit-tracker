@@ -8,6 +8,15 @@ import './components/Footer'
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 import HabitTrackerApp from "./components/HabitTrackerApp";
+import "./App.css";
+
+const handleReset = () => {
+  if (window.confirm("Are you sure you want to reset everything?")) {
+    window.location.reload();
+  }
+};
+
+
 import About from './components/About';
 
 const habitList = [
@@ -28,7 +37,6 @@ const habitList = [
   'Skincare'
 ];
 // import React from "react";
-// import "./App.css";
 
 // Simplified App component - let i18next handle initialization internally
 function App() {
@@ -55,7 +63,7 @@ function App() {
   <Router>
       <div className={`app-container ${darkMode ? "dark" : ""}`}>
         <Header toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
-        <Navbar />
+        <Navbar onReset={handleReset} />
 
         <Routes>
           {/* Home Page */}
