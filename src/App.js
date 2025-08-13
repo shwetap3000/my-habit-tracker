@@ -10,6 +10,7 @@ import Navbar from './components/Navbar';
 import HabitTrackerApp from "./components/HabitTrackerApp";
 import "./App.css";
 
+
 const handleReset = () => {
   if (window.confirm("Are you sure you want to reset everything?")) {
     window.location.reload();
@@ -64,7 +65,7 @@ function App() {
   <Router>
       <div className={`app-container ${darkMode ? "dark" : ""}`}>
         <Header toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
-        <Navbar onReset={handleReset} />
+        <Navbar />
 
         <Routes>
           {/* Home Page */}
