@@ -2,33 +2,38 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import "./TrackerCard.css";
 
-function TrackerCard({ habit, completedDays, onCheck }) {
+// The component now receives habitKey and weekDates as props
+function TrackerCard({ habit, habitKey, completedDays, onCheck, weekDates }) {
   const { t, ready } = useTranslation();
 
-  // Return null if translations aren't ready
-  if (!ready) return null;
-  const days = [
-    { key: "sun", label: t("days.sun") },
-    { key: "mon", label: t("days.mon") },
-    { key: "tue", label: t("days.tue") },
-    { key: "wed", label: t("days.wed") },
-    { key: "thu", label: t("days.thu") },
-    { key: "fri", label: t("days.fri") },
-    { key: "sat", label: t("days.sat") },
-  ];
+  // Return null if translations aren't ready or props are missing
+  if (!ready || !weekDates) return null;
+
+  // Helper function to get the three-letter day abbreviation (e.g., "Sun") from a date string
+  const getDayLabel = (dateString) => {
+    const date = new Date(dateString);
+    // Adding a time zone offset to prevent the date from shifting due to UTC conversion
+    const userTimezoneOffset = date.getTimezoneOffset() * 60000;
+    const adjustedDate = new Date(date.getTime() + userTimezoneOffset);
+    return adjustedDate.toLocaleDateString('en-US', { weekday: 'short' });
+  };
 
   return (
     <div className="tracker-card">
       <h3>{habit}</h3>
       <div className="days-row">
-        {days.map((day) => (
-          <label key={day.key}>
+        {/* Map over the weekDates array passed in as a prop */}
+        {weekDates.map((dateString) => (
+          <label key={dateString} className="day-label">
             <input
               type="checkbox"
-              checked={!!completedDays[day.key]}
-              onChange={() => onCheck(day.key)}
+              // Check for completion using the full date string
+              checked={!!completedDays[dateString]}
+              // Pass the habit's key and the full date string to the onCheck handler
+              onChange={() => onCheck(habitKey, dateString)}
             />
-            <span>{day.label}</span>
+            {/* Display the short day name (e.g., Mon, Tue) */}
+            <span>{getDayLabel(dateString)}</span>
           </label>
         ))}
       </div>
