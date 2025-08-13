@@ -7,14 +7,25 @@ import Header from './components/Header';
 import Navbar from './components/Navbar';
 import HabitTrackerApp from "./components/HabitTrackerApp";
 
+
 import MonthlySummary from "./components/MonthlySummary"; // Import the new component
 import Footer from './components/Footer';
 import withI18nReady from "./components/withI18nReady";
 
 // Import CSS
 import "./App.css";
+import "./App.css";
+
+
+const handleReset = () => {
+  if (window.confirm("Are you sure you want to reset everything?")) {
+    window.location.reload();
+  }
+};
+
 
 import About from './components/About';
+import Foot from './components/Foot';
 
 const habitList = [
   'Wake Up Time',
@@ -34,7 +45,6 @@ const habitList = [
   'Skincare'
 ];
 // import React from "react";
-// import "./App.css";
 
 
 function App() {
@@ -162,7 +172,7 @@ function App() {
 
 
           {/* Contact Page */}
-          <Route path="/Footer" element={<Footer.js />} />
+          <Route path="/Footer" element={<Footer />} />
         
 
         {/* About Page */}
@@ -171,6 +181,7 @@ function App() {
 
 
         <Footer />
+        <Foot />
       </div>
     </Router>
   );
