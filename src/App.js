@@ -7,6 +7,16 @@ import './App.css';
 import './components/Footer'
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
+import HabitTrackerApp from "./components/HabitTrackerApp";
+import "./App.css";
+
+const handleReset = () => {
+  if (window.confirm("Are you sure you want to reset everything?")) {
+    window.location.reload();
+  }
+};
+
+
 const habitList = [
   'Wake Up Time',
   'Water Intake',
@@ -24,9 +34,8 @@ const habitList = [
   'Goal Setting',
   'Skincare'
 ];
-import React from "react";
-import HabitTrackerApp from "./components/HabitTrackerApp";
-import "./App.css";
+// import React from "react";
+
 
 // Simplified App component - let i18next handle initialization internally
 function App() {
@@ -53,7 +62,7 @@ function App() {
   <Router>
       <div className={`app-container ${darkMode ? "dark" : ""}`}>
         <Header toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
-        <Navbar />
+        <Navbar onReset={handleReset} />
 
         <Routes>
           {/* Home Page */}

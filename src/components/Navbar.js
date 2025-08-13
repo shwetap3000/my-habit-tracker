@@ -2,6 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 
+const handleReset = () => {
+  if (window.confirm("Are you sure you want to reset everything?")) {
+    window.location.reload();
+  }
+};
+
 const Navbar = () => {
   return (
     <nav className="navbar">
@@ -10,6 +16,10 @@ const Navbar = () => {
         <li><Link to="/">Home</Link></li>
         <li><Link to="/about">About</Link></li>
         <li><Link to="/add-habit">Contact</Link></li>
+        <li><button onClick={handleReset} style={{ marginLeft: "10px" }} className="reset-btn">
+  Reset Page
+</button>
+</li>
       </ul>
     </nav>
   );
