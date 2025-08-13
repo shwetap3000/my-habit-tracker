@@ -10,7 +10,7 @@ export default function Footer() {
                 <img className="image object-cover" src={footerImage} alt="Footer image" />
             </div>
 
-            <div className="contact">
+            <div className="contact" style={{color: "black"}}>
                 <div className="headings">
                     <h2>contact us</h2>
                     <h3>Every habit counts. Stay committed to your journey</h3>
