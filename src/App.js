@@ -9,6 +9,7 @@ import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 import HabitTrackerApp from "./components/HabitTrackerApp";
 import About from './components/About';
+import Foot from './components/Foot';
 
 const habitList = [
   'Wake Up Time',
@@ -78,7 +79,7 @@ function App() {
 
 
           {/* Contact Page */}
-          <Route path="/Footer" element={<Footer.js />} />
+          <Route path="/Footer" element={<Footer />} />
         
 
         {/* About Page */}
@@ -86,6 +87,7 @@ function App() {
         </Routes>
 
         <Footer />
+        <Foot />
       </div>
     </Router>
   );
