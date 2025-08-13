@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,14 +29,14 @@
             color: white;
             margin-bottom: 40px;
             font-size: 2.5rem;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .habit-tracker {
             background: white;
             border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             margin-bottom: 30px;
         }
 
@@ -72,7 +73,7 @@
 
         .heatmap-day:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
         }
 
         .heatmap-day:active {
@@ -122,7 +123,7 @@
         }
 
         .instructions {
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             border-radius: 15px;
             padding: 25px;
@@ -153,33 +154,90 @@
             color: #ffd700;
         }
 
-        @media (max-width: 768px) {
-            .heatmap-day {
-                width: 60px;
-                height: 60px;
-            }
-            
-            .day-label {
-                font-size: 0.75rem;
-            }
+        .footer {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 40px;
+            text-align: center;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
+
+        .footer h3 {
+            font-size: 1rem;
+            margin-bottom: 12px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .footer-elements {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-elements a button {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-elements a button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .footer-elements a button:active {
+            transform: translateY(0);
+        }
+
 
         @media (max-width: 480px) {
             .heatmap-day {
                 width: 55px;
                 height: 55px;
             }
-            
+
             .day-label {
                 font-size: 0.7rem;
+            }
+
+            .footer-elements {
+                gap: 12px;
+            }
+
+            .footer-elements a button {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .heatmap-day {
+                width: 60px;
+                height: 60px;
+            }
+
+            .day-label {
+                font-size: 0.75rem;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Weekly Habit Tracker - Heatmap Demo</h1>
-        
+
         <div class="habit-tracker">
             <h2 class="habit-title">Morning Exercise</h2>
             <div class="heatmap-container" id="exercise-tracker">
@@ -214,15 +272,24 @@
                 <li>Level 4: Complete (darkest green)</li>
             </ul>
         </div>
+        <footer>
+            <div class="footer">
+                <h3>&copy; 2025 Habit Tracker. All rights reserved</h3>
+                <div class="footer-elements">
+                    <a href="./src/privacy.html" target="_blank"><button>Privacy Policy</button></a>
+                    <a href="./src/terms.html" target="_blank"><button>Terms of Service</button></a>
+                </div>
+            </div>
+        </footer>
     </div>
 
     <script>
         const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-        
+
         function createHeatmap(containerId, initialData = null) {
             const container = document.getElementById(containerId);
             const intensities = initialData || days.reduce((acc, day) => ({ ...acc, [day]: 0 }), {});
-            
+
             function render() {
                 container.innerHTML = '';
                 days.forEach(day => {
@@ -232,32 +299,33 @@
                         <div class="day-label">${day}</div>
                         <div class="intensity-indicator">${intensities[day]}</div>
                     `;
-                    
+
                     dayElement.addEventListener('click', () => {
                         intensities[day] = (intensities[day] + 1) % 5;
                         render();
                     });
-                    
+
                     container.appendChild(dayElement);
                 });
             }
-            
+
             render();
             return intensities;
         }
-        
+
         // Initialize heatmaps
         createHeatmap('exercise-tracker', {
             Sun: 3, Mon: 4, Tue: 2, Wed: 4, Thu: 3, Fri: 2, Sat: 4
         });
-        
+
         createHeatmap('reading-tracker', {
             Sun: 2, Mon: 1, Tue: 3, Wed: 4, Thu: 2, Fri: 3, Sat: 1
         });
-        
+
         createHeatmap('meditation-tracker', {
             Sun: 4, Mon: 3, Tue: 4, Wed: 2, Thu: 3, Fri: 4, Sat: 3
         });
     </script>
 </body>
+
 </html>

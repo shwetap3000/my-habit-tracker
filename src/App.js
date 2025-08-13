@@ -6,12 +6,36 @@ import { useTranslation } from "react-i18next";
 import Header from './components/Header';
 import Navbar from './components/Navbar';
 import HabitTrackerApp from "./components/HabitTrackerApp";
+
 import MonthlySummary from "./components/MonthlySummary"; // Import the new component
 import Footer from './components/Footer';
 import withI18nReady from "./components/withI18nReady";
 
 // Import CSS
 import "./App.css";
+
+import About from './components/About';
+
+const habitList = [
+  'Wake Up Time',
+  'Water Intake',
+  'Sleep',
+  'Meditation',
+  'Exercise',
+  'Healthy Eating',
+  'Gratitude',
+  'Journaling',
+  'Screen Time',
+  'Study',
+  'Workout',
+  'Steps',
+  'Self-Care',
+  'Goal Setting',
+  'Skincare'
+];
+// import React from "react";
+// import "./App.css";
+
 
 function App() {
   const { t } = useTranslation();
@@ -86,6 +110,7 @@ function App() {
         <Header toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
         <Navbar />
 
+
         <main>
           <Routes>
             {/* Main habit tracker page */}
@@ -115,6 +140,35 @@ function App() {
 
           </Routes>
         </main>
+
+        <Routes>
+          {/* Home Page */}
+          <Route
+            path="/"
+            element={
+              <div className="trackers">
+                {habitList.map((habit, idx) => (
+                  <TrackerCard
+                    key={idx}
+                    habit={habit}
+                    completedDays={completed[habit] || {}}
+                    onCheck={(day) => handleCompletion(habit, day)}
+                  />
+                ))}
+                <TreeGrowth completedCount={totalCompleted} />
+              </div>
+            }
+          />
+
+
+          {/* Contact Page */}
+          <Route path="/Footer" element={<Footer.js />} />
+        
+
+        {/* About Page */}
+        <Route path="/About" element={<About />} />
+        </Routes>
+
 
         <Footer />
       </div>
