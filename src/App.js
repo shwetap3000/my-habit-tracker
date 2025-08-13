@@ -17,6 +17,8 @@ const handleReset = () => {
 };
 
 
+import About from './components/About';
+
 const habitList = [
   'Wake Up Time',
   'Water Intake',
@@ -35,7 +37,6 @@ const habitList = [
   'Skincare'
 ];
 // import React from "react";
-
 
 // Simplified App component - let i18next handle initialization internally
 function App() {
@@ -86,6 +87,10 @@ function App() {
 
           {/* Contact Page */}
           <Route path="/Footer" element={<Footer.js />} />
+        
+
+        {/* About Page */}
+        <Route path="/About" element={<About />} />
         </Routes>
 
         <Footer />
