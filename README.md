@@ -2,6 +2,12 @@
 
 A clean and functional React app to track your daily habits with a beautiful and responsive UI.  
 This tracker helps you build consistency by letting you log your habits like Sleep, Water Intake, Study, Meditation, Workout, Screen Time, and more — all visualized in a weekly checklist format.
+---
+
+## 🚀 Live Demo
+[**▶ Try It Out Here**](https://my-habit-tracker-k4bc.vercel.app/)
+
+---
 
 ## ✨ Features
 

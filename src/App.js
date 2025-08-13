@@ -4,18 +4,35 @@ import { useTranslation } from "react-i18next";
 
 // Import Components
 import Header from './components/Header';
+import TreeGrowth from './components/TreeGrowth';
 import Navbar from './components/Navbar';
 import HabitTrackerApp from "./components/HabitTrackerApp";
-
-
-import MonthlySummary from "./components/MonthlySummary"; // Import the new component
+import MonthlySummary from "./components/MonthlySummary";
 import Footer from './components/Footer';
+import About from './components/About';
+import Foot from './components/Foot';
 import withI18nReady from "./components/withI18nReady";
 
 // Import CSS
 import "./App.css";
-import "./App.css";
 
+const habitKeys = [
+  'wakeUpTime',
+  'waterIntake',
+  'sleep',
+  'meditation',
+  'exercise',
+  'healthyEating',
+  'gratitude',
+  'journaling',
+  'screenTime',
+  'study',
+  'workout',
+  'steps',
+  'selfCare',
+  'goalSetting',
+  'skincare'
+];
 
 const handleReset = () => {
   if (window.confirm("Are you sure you want to reset everything?")) {
@@ -23,84 +40,27 @@ const handleReset = () => {
   }
 };
 
-
-import About from './components/About';
-import Foot from './components/Foot';
-
-const habitList = [
-  'Wake Up Time',
-  'Water Intake',
-  'Sleep',
-  'Meditation',
-  'Exercise',
-  'Healthy Eating',
-  'Gratitude',
-  'Journaling',
-  'Screen Time',
-  'Study',
-  'Workout',
-  'Steps',
-  'Self-Care',
-  'Goal Setting',
-  'Skincare'
-];
-// import React from "react";
-
-
 function App() {
   const { t } = useTranslation();
 
   // --- STATE MANAGEMENT ---
-  // All app state is now managed here to be shared between pages.
-
-  // Dark mode state
-  const [darkMode, setDarkMode] = useState(() => {
-    const savedTheme = localStorage.getItem("theme");
-    return savedTheme === "dark";
-  });
-
-  // State for completed habits, now using full dates
+  const [darkMode, setDarkMode] = useState(() => localStorage.getItem("theme") === "dark");
   const [completed, setCompleted] = useState(() => {
     const saved = localStorage.getItem("completedHabits");
     return saved ? JSON.parse(saved) : {};
   });
 
-  // --- HABIT LIST ---
-  // This list is defined once and passed to other components.
-  const habitList = [
-    { key: "wakeUpTime", label: t("habits.wakeUpTime") },
-    { key: "waterIntake", label: t("habits.waterIntake") },
-    { key: "sleep", label: t("habits.sleep") },
-    { key: "meditation", label: t("habits.meditation") },
-    { key: "exercise", label: t("habits.exercise") },
-    { key: "healthyEating", label: t("habits.healthyEating") },
-    { key: "gratitude", label: t("habits.gratitude") },
-    { key: "journaling", label: t("habits.journaling") },
-    { key: "screenTime", label: t("habits.screenTime") },
-    { key: "study", label: t("habits.study") },
-    { key: "workout", label: t("habits.workout") },
-    { key: "steps", label: t("habits.steps") },
-    { key: "selfCare", label: t("habits.selfCare") },
-    { key: "goalSetting", label: t("habits.goalSetting") },
-    { key: "skincare", label: t("habits.skincare") },
-  ];
+  const habitList = habitKeys.map(key => ({ key, label: t(`habits.${key}`) }));
 
   // --- FUNCTIONS ---
+  const toggleDarkMode = () => setDarkMode(prev => !prev);
 
-  // Toggle dark/light mode and persist
-  const toggleDarkMode = () => {
-    setDarkMode(prev => !prev);
-  };
-
-  // Save theme to localStorage whenever darkMode changes
   useEffect(() => {
     localStorage.setItem("theme", darkMode ? "dark" : "light");
   }, [darkMode]);
 
-
-  // Handle habit completion using a full date string (YYYY-MM-DD)
   const handleCompletion = (habitKey, dateString) => {
-    setCompleted((prev) => {
+    setCompleted(prev => {
       const updated = {
         ...prev,
         [habitKey]: {
@@ -108,11 +68,14 @@ function App() {
           [dateString]: !prev[habitKey]?.[dateString],
         },
       };
-      // Save to localStorage
       localStorage.setItem("completedHabits", JSON.stringify(updated));
       return updated;
     });
   };
+
+  const totalCompleted = Object.values(completed).reduce((sum, days) => {
+    return sum + Object.values(days).filter(Boolean).length;
+  }, 0);
 
   return (
     <Router>
@@ -120,10 +83,8 @@ function App() {
         <Header toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
         <Navbar />
 
-
         <main>
           <Routes>
-            {/* Main habit tracker page */}
             <Route
               path="/"
               element={
@@ -134,8 +95,6 @@ function App() {
                 />
               }
             />
-
-            {/* NEW: Monthly Summary Page */}
             <Route
               path="/summary"
               element={
@@ -145,14 +104,11 @@ function App() {
                 />
               }
             />
-
-            {/* You can add other routes here if needed */}
-
+            <Route path="/About" element={<About />} />
           </Routes>
         </main>
 
         <Routes>
-          {/* Home Page */}
           <Route
             path="/"
             element={
@@ -161,24 +117,16 @@ function App() {
                   <TrackerCard
                     key={idx}
                     habit={habit}
-                    completedDays={completed[habit] || {}}
-                    onCheck={(day) => handleCompletion(habit, day)}
+                    completedDays={completed[habit.key] || {}}
+                    onCheck={(day) => handleCompletion(habit.key, day)}
                   />
                 ))}
                 <TreeGrowth completedCount={totalCompleted} />
               </div>
             }
           />
-
-
-          {/* Contact Page */}
           <Route path="/Footer" element={<Footer />} />
-        
-
-        {/* About Page */}
-        <Route path="/About" element={<About />} />
         </Routes>
-
 
         <Footer />
         <Foot />
@@ -187,5 +135,5 @@ function App() {
   );
 }
 
-// Wrap the App with withI18nReady to ensure translations are loaded
+// Wrap App with i18n loader
 export default withI18nReady(App);
