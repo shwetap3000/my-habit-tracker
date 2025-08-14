@@ -11,32 +11,9 @@ import MonthlySummary from "./components/MonthlySummary";
 import Footer from './components/Footer';
 import About from './components/About';
 import Foot from './components/Foot';
-import withI18nReady from "./components/withI18nReady";
+// import withI18nReady from "./components/withI18nReady";
 import TrackerCard from './components/TrackerCard';
-
-// Import CSS
-
- ui-polish
 import "./App.css";
-const habitList = [
-  'Wake Up Time',
-  'Water Intake',
-  'Sleep',
-  'Meditation',
-  'Exercise',
-  'Healthy Eating',
-  'Gratitude',
-  'Journaling',
-  'Screen Time',
-  'Study',
-  'Workout',
-  'Steps',
-  'Self-Care',
-  'Goal Setting',
-  'Skincare'
-];
-
-
 
 const habitEmojis = {
   wakeUpTime: '⏰',
@@ -205,4 +182,4 @@ function App() {
 };
 
 // Wrap App with i18n loader
-export default withI18nReady(App);
+export default App;
