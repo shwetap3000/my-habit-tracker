@@ -1,81 +1,101 @@
+/* ===== HEADER BASE ===== */
 .header {
   text-align: center;
-  padding: 1rem;
+  padding: 0.75rem 1.5rem; /* reduced padding for better space usage */
   background-color: #f8a5d7;
-
-}
-
-.headerDisplay {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1); /* subtle separation */
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .dark .header {
   background-color: #444;
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
+/* ===== HEADER FLEX LAYOUT ===== */
+.headerDisplay {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap; /* allows wrapping for small screens */
+}
+
+/* ===== HEADER TITLE ===== */
 .header h1 {
   margin: 0;
   flex: 1;
-  text-align: center;
+  font-size: 1.8rem; /* improved hierarchy */
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #222;
 }
 
+.dark .header h1 {
+  color: #fff;
+  transition: color 0.3s ease; /* smooth mode switch */
+}
+
+/* ===== HEADER CONTROLS ===== */
 .header-controls {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem; /* balanced spacing */
+  flex-wrap: wrap; /* prevent overflow on small screens */
 }
 
-.mode-toggle  {
+/* ===== MODE TOGGLE BUTTON ===== */
+.mode-toggle {
   margin-top: 0;
   padding: 0.4rem 1rem;
   font-size: 1rem;
+  font-weight: 500;
   border-radius: 8px;
   border: none;
   cursor: pointer;
   background-color: #cfdff7;
-  box-shadow: 4px 4px 5px rgb(34, 8, 50);
-}
-
-.toggleTransition {
+  color: #222;
+  box-shadow: 2px 2px 6px rgba(34, 8, 50, 0.3); /* softer, modern shadow */
   transition: all 0.3s ease;
 }
 
-.toggleTransition:hover {
-  transform: translateY(-1px);
+.mode-toggle:hover {
+  transform: translateY(-2px);
   background-color: #b8d4f7;
-  box-shadow: 4px 4px 5px rgb(34, 8, 50);
-}
-.dark button {
-  background-color: #666;
-  color: white;
+  box-shadow: 3px 3px 8px rgba(34, 8, 50, 0.4);
 }
 
+/* ===== DARK MODE TOGGLE ===== */
 .dark .mode-toggle {
   background-color: #666;
   color: white;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .dark .mode-toggle:hover {
   background-color: #777;
+  transform: translateY(-2px);
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.45);
 }
 
-/* Responsive design */
+/* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
-  .header {
+  .headerDisplay {
     flex-direction: column;
+    align-items: center;
     text-align: center;
   }
 
   .header h1 {
-    text-align: center;
     margin-bottom: 0.5rem;
   }
 
   .header-controls {
     justify-content: center;
+  }
+
+  .mode-toggle {
+    width: 100%; /* full width on mobile for easy tapping */
+    max-width: 200px; /* prevent it from being too wide */
   }
 }
