@@ -1,4 +1,4 @@
-.tracker-card {
+.TrackerCard {
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 12px;
@@ -8,16 +8,16 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.tracker-card {
+.TrackerCard {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.tracker-card:hover {
+.TrackerCard:hover {
   transform: translateY(-5px) scale(1.02);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-.dark .tracker-card {
+.dark .TrackerCard {
   background-color: #222;
   border-color: #444;
 }
@@ -38,7 +38,7 @@
 input[type="checkbox"] {
   margin-right: 5px;
 }
-.tracker-card {
+.TrackerCard {
   background-color: var(--card-bg);
   padding: 20px;
   border-radius: 12px;
@@ -47,7 +47,7 @@ input[type="checkbox"] {
   margin-bottom: 20px;
 }
 
-.tracker-card h3 {
+.TrackerCard h3 {
   margin-top: 0;
   margin-bottom: 15px;
   font-size: 1.2rem;
