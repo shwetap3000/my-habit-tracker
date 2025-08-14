@@ -10,6 +10,7 @@ import Footer from "./components/Footer";
 import About from "./components/About";
 import Foot from "./components/Foot";
 import TrackerCard from "./components/TrackerCard";
+import Contact from "./components/Contact";
 
 import "./App.css";
 
@@ -161,6 +162,7 @@ function App() {
               }
             />
             <Route path="/About" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
           </Routes>
         </main>
 
