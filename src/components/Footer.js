@@ -10,8 +10,10 @@ export default function Footer() {
                 <img className="image object-cover" src={footerImage} alt="Footer" />
             </div>
 
+ ui-polish
             {/* Contact Section */}
             <div className="contact">
+
                 <div className="headings">
                     <h2>Contact Us</h2>
                     <h3>Every habit counts. Stay committed to your journey</h3>

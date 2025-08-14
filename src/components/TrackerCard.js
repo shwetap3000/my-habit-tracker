@@ -1,6 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
+ ui-polish
 function TrackerCard({ habit, completedDays, onCheck, darkMode }) {
   const { t, ready } = useTranslation();
   if (!ready) return null;
@@ -15,10 +16,28 @@ function TrackerCard({ habit, completedDays, onCheck, darkMode }) {
     { key: "sat", label: t("days.sat") },
   ];
 
+// The component now receives habitKey and weekDates as props
+function TrackerCard({ habit, habitKey, completedDays, onCheck, weekDates }) {
+  const { t, ready } = useTranslation();
+
+  // Return null if translations aren't ready or props are missing
+  if (!ready || !weekDates) return null;
+
+  // Helper function to get the three-letter day abbreviation (e.g., "Sun") from a date string
+  const getDayLabel = (dateString) => {
+    const date = new Date(dateString);
+    // Adding a time zone offset to prevent the date from shifting due to UTC conversion
+    const userTimezoneOffset = date.getTimezoneOffset() * 60000;
+    const adjustedDate = new Date(date.getTime() + userTimezoneOffset);
+    return adjustedDate.toLocaleDateString('en-US', { weekday: 'short' });
+  };
+ main
+
   const completedCount = Object.values(completedDays).filter(Boolean).length;
   const progressPercent = Math.round((completedCount / days.length) * 100);
 
   return (
+ ui-polish
     <div
       style={{
         padding: "1.25rem",
@@ -57,6 +76,7 @@ function TrackerCard({ habit, completedDays, onCheck, darkMode }) {
               }}
             />
             <span style={{ fontSize: "0.875rem", userSelect: "none" }}>{day.label}</span>
+
           </label>
         ))}
       </div>

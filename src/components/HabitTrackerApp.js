@@ -1,8 +1,10 @@
+ ui-polish
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+
 import TrackerCard from "./TrackerCard";
-import Header from "./Header";
 import TreeGrowth from "./TreeGrowth";
+ ui-polish
 import withI18nReady from "./withI18nReady";
 import "../App.css";
 
@@ -94,14 +96,17 @@ function HabitTrackerApp() {
 
       {/* Habit Tracker Cards */}
       <main className="trackers grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+
         {habitList.map((habit) => (
           <TrackerCard
             key={habit.key}
             habit={habit.label}
+ ui-polish
             tooltip={habit.tooltip}
             completedDays={completed[habit.key] || {}}
             onCheck={(day) => handleCompletion(habit.key, day)}
             darkMode={darkMode}
+
           />
         ))}
       </main>
@@ -110,8 +115,13 @@ function HabitTrackerApp() {
       <div className="mt-10">
         <TreeGrowth completedCount={totalCompleted} />
       </div>
+ ui-polish
     </div>
+
+      <TreeGrowth completedCount={totalCompleted} />
+    </>
+ main
   );
 }
 
-export default withI18nReady(HabitTrackerApp);
+export default HabitTrackerApp;
