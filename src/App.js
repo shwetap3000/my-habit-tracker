@@ -7,6 +7,8 @@ import './App.css';
 import './components/Footer'
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
+import HabitTrackerApp from "./components/HabitTrackerApp";
+import "./App.css";
 const habitList = [
   'Wake Up Time',
   'Water Intake',
@@ -24,9 +26,7 @@ const habitList = [
   'Goal Setting',
   'Skincare'
 ];
-import React from "react";
-import HabitTrackerApp from "./components/HabitTrackerApp";
-import "./App.css";
+
 
 // Simplified App component - let i18next handle initialization internally
 function App() {

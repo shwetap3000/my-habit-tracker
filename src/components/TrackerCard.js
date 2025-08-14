@@ -1,12 +1,10 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import "./TrackerCard.css";
 
-function TrackerCard({ habit, completedDays, onCheck }) {
+function TrackerCard({ habit, completedDays, onCheck, darkMode }) {
   const { t, ready } = useTranslation();
-
-  // Return null if translations aren't ready
   if (!ready) return null;
+
   const days = [
     { key: "sun", label: t("days.sun") },
     { key: "mon", label: t("days.mon") },
@@ -17,20 +15,70 @@ function TrackerCard({ habit, completedDays, onCheck }) {
     { key: "sat", label: t("days.sat") },
   ];
 
+  const completedCount = Object.values(completedDays).filter(Boolean).length;
+  const progressPercent = Math.round((completedCount / days.length) * 100);
+
   return (
-    <div className="tracker-card">
-      <h3>{habit}</h3>
-      <div className="days-row">
+    <div
+      style={{
+        padding: "1.25rem",
+        borderRadius: "1rem",
+        boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+        transition: "transform 0.3s",
+        backgroundColor: darkMode ? "#1f2937" : "#ffffff",
+        color: darkMode ? "#f9fafb" : "#111827",
+        cursor: "pointer",
+      }}
+      onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-8px)")}
+      onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
+    >
+      <h3 style={{ fontSize: "1.125rem", fontWeight: 600, marginBottom: "0.75rem" }}>
+        {habit}
+      </h3>
+
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "1rem" }}>
         {days.map((day) => (
-          <label key={day.key}>
+          <label
+            key={day.key}
+            style={{ display: "flex", alignItems: "center", gap: "0.25rem", cursor: "pointer" }}
+          >
             <input
               type="checkbox"
               checked={!!completedDays[day.key]}
               onChange={() => onCheck(day.key)}
+              style={{
+                width: "1.25rem",
+                height: "1.25rem",
+                borderRadius: "0.25rem",
+                border: "1px solid",
+                borderColor: completedDays[day.key] ? "#22c55e" : "#d1d5db",
+                backgroundColor: completedDays[day.key] ? "#22c55e" : "#e5e7eb",
+                transition: "all 0.2s",
+              }}
             />
-            <span>{day.label}</span>
+            <span style={{ fontSize: "0.875rem", userSelect: "none" }}>{day.label}</span>
           </label>
         ))}
+      </div>
+
+      {/* Progress Bar */}
+      <div
+        style={{
+          height: "0.5rem",
+          width: "100%",
+          backgroundColor: "#d1d5db",
+          borderRadius: "9999px",
+          overflow: "hidden",
+        }}
+      >
+        <div
+          style={{
+            height: "100%",
+            width: `${progressPercent}%`,
+            backgroundColor: "#22c55e",
+            transition: "width 0.3s",
+          }}
+        />
       </div>
     </div>
   );
