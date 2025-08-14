@@ -115,8 +115,6 @@ function App() {
   return week;
 };
 
-
-
   return (
     <Router>
       <div className={`app-container ${darkMode ? "dark" : ""}`}>
@@ -142,10 +140,9 @@ function App() {
                     onEdit={(newLabel) => handleHabitEdit(habit.key , newLabel)} 
                   />
                 ))}
-                
-              </div>
-              <TreeGrowth completedCount={totalCompleted} />
                 </div>
+                <TreeGrowth completedCount={totalCompleted} />
+              </div>
               }
             />
             <Route
