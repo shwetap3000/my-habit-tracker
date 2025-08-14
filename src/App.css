@@ -3,11 +3,12 @@ body {
   font-family: 'Segoe UI', sans-serif;
   background-color: #fff;
   color: #333;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .app-container.dark {
-  background-color: #111;
-  color: #eee;
+  background-color: #121212; /* Slightly softer than pure black */
+  color: #f0f0f0;
 }
 
 .trackers {
@@ -15,4 +16,5 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   padding: 1rem;
+  gap: 1rem; /* Keeps cards evenly spaced */
 }

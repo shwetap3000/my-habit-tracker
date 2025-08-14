@@ -1,51 +1,95 @@
-////////////// this will check if i18n is ready or not //////////////////
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import TrackerCard from "./TrackerCard";
+import Header from "./Header";
+import TreeGrowth from "./TreeGrowth";
+import WeeklyHabitHeatmap from "./WeeklyHabitHeatmap";
+import LanguageSwitcher from "./LanguageSwitcher";
+import withI18nReady from "./withI18nReady";
+import "../App.css"; // go up one folder to src
 
-import React, { useState, useEffect } from "react";
-import i18n, { initPromise } from "../i18n";
 
-// HOC that waits for i18n to be fully initialized before rendering children
-function withI18nReady(WrappedComponent) {
-  return function I18nReadyWrapper(props) {
-    const [isReady, setIsReady] = useState(false);
+function HabitTrackerApp() {
+  const { t } = useTranslation();
 
-    useEffect(() => {
-      // Wait for the initialization promise to resolve
-      initPromise
-        .then(() => {
-          setIsReady(true);
-        })
-        .catch((error) => {
-          console.error("i18n initialization failed:", error);
-          // Fallback to render anyway to avoid infinite loading
-          setIsReady(true);
-        });
-    }, []);
+  const [darkMode, setDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem("theme");
+    return savedTheme === "dark";
+  });
 
-    // Show loading while i18n initializes
-    if (!isReady) {
-      return (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100vh",
-            fontSize: "18px",
-            color: "#666",
-            backgroundColor: "#f5f5f5",
-          }}
-        >
-          <div style={{ textAlign: "center" }}>
-            <div style={{ fontSize: "24px", marginBottom: "10px" }}>🌸</div>
-            <div>Loading translations...</div>
-          </div>
-        </div>
-      );
-    }
+  const [completed, setCompleted] = useState(() => {
+    const saved = localStorage.getItem("completedHabits");
+    return saved ? JSON.parse(saved) : {};
+  });
 
-    // Render the wrapped component once i18n is ready
-    return <WrappedComponent {...props} />;
+  const habitList = [
+    { key: "wakeUpTime", label: t("habits.wakeUpTime") },
+    { key: "waterIntake", label: t("habits.waterIntake") },
+    { key: "sleep", label: t("habits.sleep") },
+    { key: "meditation", label: t("habits.meditation") },
+    { key: "exercise", label: t("habits.exercise") },
+    { key: "healthyEating", label: t("habits.healthyEating") },
+    { key: "gratitude", label: t("habits.gratitude") },
+    { key: "journaling", label: t("habits.journaling") },
+    { key: "screenTime", label: t("habits.screenTime") },
+    { key: "study", label: t("habits.study") },
+    { key: "workout", label: t("habits.workout") },
+    { key: "steps", label: t("habits.steps") },
+    { key: "selfCare", label: t("habits.selfCare") },
+    { key: "goalSetting", label: t("habits.goalSetting") },
+    { key: "skincare", label: t("habits.skincare") },
+  ];
+
+  const toggleDarkMode = () => {
+    setDarkMode((prev) => {
+      localStorage.setItem("theme", !prev ? "dark" : "light");
+      return !prev;
+    });
   };
+
+  const handleCompletion = (habitKey, day) => {
+    setCompleted((prev) => {
+      const updated = {
+        ...prev,
+        [habitKey]: {
+          ...prev[habitKey],
+          [day]: !prev[habitKey]?.[day],
+        },
+      };
+      localStorage.setItem("completedHabits", JSON.stringify(updated));
+      return updated;
+    });
+  };
+
+  const totalCompleted = Object.values(completed).reduce((sum, days) => {
+    return sum + Object.values(days).filter(Boolean).length;
+  }, 0);
+
+  return (
+    <div className={`app-container ${darkMode ? "dark" : ""}`}>
+      <Header toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
+      <LanguageSwitcher darkMode={darkMode} />
+
+      <main className="trackers">
+        {habitList.map((habit) => (
+          <TrackerCard
+            key={habit.key}
+            habit={habit.label}
+            completedDays={completed[habit.key] || {}}
+            onCheck={(day) => handleCompletion(habit.key, day)}
+          />
+        ))}
+      </main>
+
+      <TreeGrowth completedCount={totalCompleted} />
+
+      <div className="heatmap-section">
+        {habitList.slice(0, 7).map((habit) => (
+          <WeeklyHabitHeatmap key={habit.key} habitName={habit.label} />
+        ))}
+      </div>
+    </div>
+  );
 }
 
-export default withI18nReady;
+export default withI18nReady(HabitTrackerApp);
