@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-
-// Import Components
 import Header from './components/Header';
 import TreeGrowth from './components/TreeGrowth';
 import Navbar from './components/Navbar';
@@ -13,8 +11,6 @@ import About from './components/About';
 import Foot from './components/Foot';
 import withI18nReady from "./components/withI18nReady";
 import TrackerCard from './components/TrackerCard';
-
-// Import CSS
 import "./App.css";
 
 const habitEmojis = {
@@ -133,13 +129,7 @@ function App() {
               path="/"
               element={
                 <div>
-                {/* <HabitTrackerApp
-                  habitList={habitList}
-                  completedData={completed}
-                  onCheck={handleCompletion}
-                /> */}
                 <div className="trackers">
-                {/* {habitList.map((habit, idx) => ( */}
                 {editableHabits.map((habit, idx) => (
                   <TrackerCard
                     key={idx}
@@ -147,7 +137,6 @@ function App() {
                     habitKey={habit.key}
                     completedDays={completed[habit.key] || {}}
                     onCheck={handleCompletion}
-                    // onCheck={(day) => handleCompletion(habit.key, day)}
                     weekDates={getWeekDates()}
                     emoji={habitEmojis[habit.key]}
                     onEdit={(newLabel) => handleHabitEdit(habit.key , newLabel)} 
