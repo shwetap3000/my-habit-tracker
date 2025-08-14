@@ -1,10 +1,20 @@
-import React from "react";
+import React, {useState} from "react";
 import { useTranslation } from "react-i18next";
 import "./TrackerCard.css";
 
 // The component now receives habitKey and weekDates as props
-function TrackerCard({ habit, habitKey, completedDays, onCheck, weekDates }) {
+function TrackerCard({
+  habit,
+  habitKey,
+  completedDays,
+  onCheck,
+  weekDates,
+  emoji,
+  onEdit
+}) {
   const { t, ready } = useTranslation();
+  const [isEditing, setIsEditing] = useState(false);
+const [inputValue, setInputValue] = useState(habit.label);
 
   // Return null if translations aren't ready or props are missing
   if (!ready || !weekDates) return null;
@@ -15,12 +25,38 @@ function TrackerCard({ habit, habitKey, completedDays, onCheck, weekDates }) {
     // Adding a time zone offset to prevent the date from shifting due to UTC conversion
     const userTimezoneOffset = date.getTimezoneOffset() * 60000;
     const adjustedDate = new Date(date.getTime() + userTimezoneOffset);
-    return adjustedDate.toLocaleDateString('en-US', { weekday: 'short' });
+    return adjustedDate.toLocaleDateString("en-US", { weekday: "short" });
   };
 
   return (
     <div className="tracker-card">
-      <h3>{habit}</h3>
+      {/* <h3>{habit.label} {emoji}</h3> */}
+      <h3>
+        {emoji}{" "}
+        {isEditing ? (
+          <>
+            <input
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+            />
+            <button
+              onClick={() => {
+                onEdit(inputValue);
+                setIsEditing(false);
+              }}
+            >
+              Save
+            </button>
+            <button onClick={() => setIsEditing(false)}>Cancel</button>
+          </>
+        ) : (
+          <>
+            {habit.label}{" "}
+            <button onClick={() => setIsEditing(true)}>Edit</button>
+          </>
+        )}
+      </h3>
+
       <div className="days-row">
         {/* Map over the weekDates array passed in as a prop */}
         {weekDates.map((dateString) => (

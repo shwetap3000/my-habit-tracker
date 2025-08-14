@@ -12,9 +12,28 @@ import Footer from './components/Footer';
 import About from './components/About';
 import Foot from './components/Foot';
 import withI18nReady from "./components/withI18nReady";
+import TrackerCard from './components/TrackerCard';
 
 // Import CSS
 import "./App.css";
+
+const habitEmojis = {
+  wakeUpTime: '⏰',
+  waterIntake: '💧',
+  sleep: '🛌',
+  meditation: '🧘‍♂️',
+  exercise: '🏋️‍♀️',
+  healthyEating: '🥗',
+  gratitude: '🙏',
+  journaling: '📝',
+  screenTime: '📱',
+  study: '📚',
+  workout: '💪',
+  steps: '🚶‍♂️',
+  selfCare: '🛁',
+  goalSetting: '🎯',
+  skincare: '🧴'
+};
 
 const habitKeys = [
   'wakeUpTime',
@@ -42,6 +61,18 @@ const handleReset = () => {
 
 function App() {
   const { t } = useTranslation();
+
+  const [editableHabits, setEditableHabits] = useState(
+    habitKeys.map(key => ({ key, label: t(`habits.${key}`) }))
+  );
+
+  const handleHabitEdit = (habitKey, newLabel) => {
+    setEditableHabits(prev =>
+      prev.map(habit =>
+        habit.key === habitKey ? { ...habit, label: newLabel } : habit
+      )
+    );
+  }
 
   // --- STATE MANAGEMENT ---
   const [darkMode, setDarkMode] = useState(() => localStorage.getItem("theme") === "dark");
@@ -77,6 +108,19 @@ function App() {
     return sum + Object.values(days).filter(Boolean).length;
   }, 0);
 
+  const getWeekDates = () => {
+  const today = new Date();
+  const week = [];
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(today);
+    d.setDate(today.getDate() - today.getDay() + i); // Sunday → Saturday
+    week.push(d.toISOString().split('T')[0]);
+  }
+  return week;
+};
+
+
+
   return (
     <Router>
       <div className={`app-container ${darkMode ? "dark" : ""}`}>
@@ -88,11 +132,31 @@ function App() {
             <Route
               path="/"
               element={
-                <HabitTrackerApp
+                <div>
+                {/* <HabitTrackerApp
                   habitList={habitList}
                   completedData={completed}
                   onCheck={handleCompletion}
-                />
+                /> */}
+                <div className="trackers">
+                {/* {habitList.map((habit, idx) => ( */}
+                {editableHabits.map((habit, idx) => (
+                  <TrackerCard
+                    key={idx}
+                    habit={habit}
+                    habitKey={habit.key}
+                    completedDays={completed[habit.key] || {}}
+                    onCheck={handleCompletion}
+                    // onCheck={(day) => handleCompletion(habit.key, day)}
+                    weekDates={getWeekDates()}
+                    emoji={habitEmojis[habit.key]}
+                    onEdit={(newLabel) => handleHabitEdit(habit.key , newLabel)} 
+                  />
+                ))}
+                
+              </div>
+              <TreeGrowth completedCount={totalCompleted} />
+                </div>
               }
             />
             <Route
@@ -109,22 +173,6 @@ function App() {
         </main>
 
         <Routes>
-          <Route
-            path="/"
-            element={
-              <div className="trackers">
-                {habitList.map((habit, idx) => (
-                  <TrackerCard
-                    key={idx}
-                    habit={habit}
-                    completedDays={completed[habit.key] || {}}
-                    onCheck={(day) => handleCompletion(habit.key, day)}
-                  />
-                ))}
-                <TreeGrowth completedCount={totalCompleted} />
-              </div>
-            }
-          />
           <Route path="/Footer" element={<Footer />} />
         </Routes>
 
@@ -133,7 +181,7 @@ function App() {
       </div>
     </Router>
   );
-}
+};
 
 // Wrap App with i18n loader
 export default withI18nReady(App);
