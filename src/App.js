@@ -11,6 +11,7 @@ import About from './components/About';
 import Foot from './components/Foot';
 import withI18nReady from "./components/withI18nReady";
 import TrackerCard from './components/TrackerCard';
+
  ui-polish
 import "./App.css";
 const habitList = [
@@ -135,6 +136,7 @@ function App() {
   return week;
 };
 
+
   return (
     <Router>
       <div className={`app-container ${darkMode ? "dark" : ""}`}>
@@ -148,6 +150,14 @@ function App() {
               element={
                 <div>
                 <div className="trackers">
+
+                {/* <HabitTrackerApp
+                  habitList={habitList}
+                  completedData={completed}
+                  onCheck={handleCompletion}
+                /> */}
+                <div className="trackers">
+                {/* {habitList.map((habit, idx) => ( */}
                 {editableHabits.map((habit, idx) => (
                   <TrackerCard
                     key={idx}
@@ -155,6 +165,7 @@ function App() {
                     habitKey={habit.key}
                     completedDays={completed[habit.key] || {}}
                     onCheck={handleCompletion}
+
                     weekDates={getWeekDates()}
                     emoji={habitEmojis[habit.key]}
                     onEdit={(newLabel) => handleHabitEdit(habit.key , newLabel)} 
@@ -163,6 +174,10 @@ function App() {
                 </div>
                 <TreeGrowth completedCount={totalCompleted} />
               </div>
+                
+              </div>
+              <TreeGrowth completedCount={totalCompleted} />
+                </div>
               }
             />
             <Route
