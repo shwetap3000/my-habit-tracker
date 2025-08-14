@@ -1,35 +1,49 @@
 import React from "react";
 import footerImage from './foot.jpg';
-import { Link } from "react-router-dom";
 import './Footer.css';
 
 export default function Footer() {
     return (
         <div className="footer" id="contact">
+            {/* Image Section */}
             <div className="img-container">
-                <img className="image object-cover" src={footerImage} alt="Footer image" />
+                <img className="image object-cover" src={footerImage} alt="Footer" />
             </div>
 
-            <div className="contact" style={{color: "black"}}>
+ ui-polish
+            {/* Contact Section */}
+            <div className="contact">
+
                 <div className="headings">
-                    <h2>contact us</h2>
+                    <h2>Contact Us</h2>
                     <h3>Every habit counts. Stay committed to your journey</h3>
                 </div>
+
                 <div className="connection">
+                    {/* Left Text */}
                     <div className="left">
-                    <p>We’re here to support your habit-tracking journey! Whether you have questions, feedback, or just want to share your progress, reach out—we’d love to hear from you. Your input helps us improve and create a better experience for everyone. Let’s build better habits, together!</p>
+                        <p>
+                            We’re here to support your habit-tracking journey! Whether you have questions, feedback, or just want to share your progress, reach out—we’d love to hear from you. Your input helps us improve and create a better experience for everyone. Let’s build better habits, together!
+                        </p>
                     </div>
+
+                    {/* Right Form */}
                     <div className="right">
-                        <lable>Name: </lable>
-                        <input type="text" placeholder = "enter your name"></input><br></br>
-                        <lable>Email: </lable>
-                        <input type = "email" placeholder="enter you email"></input><br></br>
-                        <lable>Message: </lable>
-                        <textarea type="text"></textarea><br></br>
-                        <button>contact</button>
+                        <form className="contact-form">
+                            <label htmlFor="name">Name:</label>
+                            <input id="name" type="text" placeholder="Enter your name" />
+
+                            <label htmlFor="email">Email:</label>
+                            <input id="email" type="email" placeholder="Enter your email" />
+
+                            <label htmlFor="message">Message:</label>
+                            <textarea id="message" placeholder="Write your message"></textarea>
+
+                            <button type="submit">Contact</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    )
+    );
 }

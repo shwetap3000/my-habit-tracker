@@ -11,7 +11,27 @@ import About from './components/About';
 import Foot from './components/Foot';
 import withI18nReady from "./components/withI18nReady";
 import TrackerCard from './components/TrackerCard';
+ ui-polish
 import "./App.css";
+const habitList = [
+  'Wake Up Time',
+  'Water Intake',
+  'Sleep',
+  'Meditation',
+  'Exercise',
+  'Healthy Eating',
+  'Gratitude',
+  'Journaling',
+  'Screen Time',
+  'Study',
+  'Workout',
+  'Steps',
+  'Self-Care',
+  'Goal Setting',
+  'Skincare'
+];
+
+
 
 const habitEmojis = {
   wakeUpTime: '⏰',

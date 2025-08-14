@@ -1,6 +1,20 @@
 import React, {useState} from "react";
 import { useTranslation } from "react-i18next";
-import "./TrackerCard.css";
+
+ ui-polish
+function TrackerCard({ habit, completedDays, onCheck, darkMode }) {
+  const { t, ready } = useTranslation();
+  if (!ready) return null;
+
+  const days = [
+    { key: "sun", label: t("days.sun") },
+    { key: "mon", label: t("days.mon") },
+    { key: "tue", label: t("days.tue") },
+    { key: "wed", label: t("days.wed") },
+    { key: "thu", label: t("days.thu") },
+    { key: "fri", label: t("days.fri") },
+    { key: "sat", label: t("days.sat") },
+  ];
 
 // The component now receives habitKey and weekDates as props
 function TrackerCard({
@@ -27,6 +41,10 @@ const [inputValue, setInputValue] = useState(habit.label);
     const adjustedDate = new Date(date.getTime() + userTimezoneOffset);
     return adjustedDate.toLocaleDateString("en-US", { weekday: "short" });
   };
+ main
+
+  const completedCount = Object.values(completedDays).filter(Boolean).length;
+  const progressPercent = Math.round((completedCount / days.length) * 100);
 
   return (
     <div className="tracker-card">
@@ -61,17 +79,68 @@ const [inputValue, setInputValue] = useState(habit.label);
         {/* Map over the weekDates array passed in as a prop */}
         {weekDates.map((dateString) => (
           <label key={dateString} className="day-label">
+ ui-polish
+    <div
+      style={{
+        padding: "1.25rem",
+        borderRadius: "1rem",
+        boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+        transition: "transform 0.3s",
+        backgroundColor: darkMode ? "#1f2937" : "#ffffff",
+        color: darkMode ? "#f9fafb" : "#111827",
+        cursor: "pointer",
+      }}
+      onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-8px)")}
+      onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
+    >
+      <h3 style={{ fontSize: "1.125rem", fontWeight: 600, marginBottom: "0.75rem" }}>
+        {habit}
+      </h3>
+
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "1rem" }}>
+        {days.map((day) => (
+          <label
+            key={day.key}
+            style={{ display: "flex", alignItems: "center", gap: "0.25rem", cursor: "pointer" }}
+          >
             <input
               type="checkbox"
-              // Check for completion using the full date string
-              checked={!!completedDays[dateString]}
-              // Pass the habit's key and the full date string to the onCheck handler
-              onChange={() => onCheck(habitKey, dateString)}
+              checked={!!completedDays[day.key]}
+              onChange={() => onCheck(day.key)}
+              style={{
+                width: "1.25rem",
+                height: "1.25rem",
+                borderRadius: "0.25rem",
+                border: "1px solid",
+                borderColor: completedDays[day.key] ? "#22c55e" : "#d1d5db",
+                backgroundColor: completedDays[day.key] ? "#22c55e" : "#e5e7eb",
+                transition: "all 0.2s",
+              }}
             />
-            {/* Display the short day name (e.g., Mon, Tue) */}
-            <span>{getDayLabel(dateString)}</span>
+            <span style={{ fontSize: "0.875rem", userSelect: "none" }}>{day.label}</span>
+
           </label>
         ))}
+      </div>
+
+      {/* Progress Bar */}
+      <div
+        style={{
+          height: "0.5rem",
+          width: "100%",
+          backgroundColor: "#d1d5db",
+          borderRadius: "9999px",
+          overflow: "hidden",
+        }}
+      >
+        <div
+          style={{
+            height: "100%",
+            width: `${progressPercent}%`,
+            backgroundColor: "#22c55e",
+            transition: "width 0.3s",
+          }}
+        />
       </div>
     </div>
   );
