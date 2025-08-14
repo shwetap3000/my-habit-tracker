@@ -3,7 +3,7 @@
   display: inline-block;
 }
 
-/* Globe button styling */
+/* Globe button */
 .globe-btn {
   background: var(--card-bg, #fff);
   border: 1px solid var(--border-color, #ddd);
@@ -11,12 +11,13 @@
   padding: 8px 12px;
   font-size: 18px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background-color 0.25s ease, transform 0.15s ease, border-color 0.25s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   min-width: 44px;
   height: 44px;
+  touch-action: manipulation; /* improves mobile tap responsiveness */
 }
 
 .globe-btn:hover {
@@ -25,22 +26,25 @@
   border-color: var(--primary-color, #4caf50);
 }
 
-.globe-btn:focus {
-  outline: none;
-  border-color: var(--primary-color, #4caf50);
-  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+.globe-btn:active {
+  transform: scale(0.97);
 }
 
-/* Dropdown menu styling */
+.globe-btn:focus-visible {
+  outline: none;
+  border-color: var(--primary-color, #4caf50);
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.25);
+}
+
+/* Dropdown */
 .language-dropdown {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 4px);
   right: 0;
-  margin-top: 4px;
   background: var(--card-bg, #fff);
   border: 1px solid var(--border-color, #ddd);
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
   z-index: 1000;
   min-width: 140px;
   overflow: hidden;
@@ -50,7 +54,7 @@
 @keyframes dropdownSlideIn {
   from {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-8px);
   }
   to {
     opacity: 1;
@@ -58,7 +62,7 @@
   }
 }
 
-/* Dropdown item styling */
+/* Items */
 .dropdown-item {
   width: 100%;
   padding: 10px 12px;
@@ -89,14 +93,13 @@
 
 .flag {
   font-size: 16px;
-  line-height: 1;
 }
 
 .language-name {
   font-weight: 500;
 }
 
-/* Dark mode styles */
+/* Dark mode */
 .dark .globe-btn {
   background: var(--dark-card-bg, #2c2c2c);
   border-color: var(--dark-border, #555);
@@ -110,7 +113,7 @@
 .dark .language-dropdown {
   background: var(--dark-card-bg, #2c2c2c);
   border-color: var(--dark-border, #555);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
 }
 
 .dark .dropdown-item {
@@ -126,7 +129,7 @@
   color: white;
 }
 
-/* Responsive design */
+/* Mobile tweaks */
 @media (max-width: 768px) {
   .globe-btn {
     min-width: 40px;

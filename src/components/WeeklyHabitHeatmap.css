@@ -1,16 +1,20 @@
 /* Weekly Habit Heatmap Styles */
-
 .weekly-habit-heatmap {
   background: #ffffff;
   border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
   margin: 10px;
-  transition: all 0.3s ease;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.weekly-habit-heatmap:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
 }
 
 .habit-title {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 600;
   color: #2d3748;
   margin-bottom: 16px;
@@ -32,18 +36,18 @@
   justify-content: center;
   width: 60px;
   height: 60px;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   position: relative;
   border: 2px solid transparent;
   user-select: none;
 }
 
 .heatmap-day:hover,
-.heatmap-day:focus {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.heatmap-day:focus-visible {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
   outline: none;
 }
 
@@ -58,7 +62,7 @@
   font-weight: bold;
 }
 
-/* Intensity Color Classes */
+/* Intensity Colors */
 .intensity-0 {
   background-color: #f7fafc;
   color: #a0aec0;
@@ -89,58 +93,68 @@
   border-color: #2f855a;
 }
 
-/* Responsive Design */
+/* Responsive */
 @media (max-width: 768px) {
-  .heatmap-container {
-    gap: 6px;
-  }
-  
   .heatmap-day {
     width: 50px;
     height: 50px;
   }
-  
-  .day-label {
-    font-size: 0.7rem;
-  }
-  
-  .intensity-indicator {
-    font-size: 0.8rem;
-  }
+  .day-label { font-size: 0.7rem; }
+  .intensity-indicator { font-size: 0.8rem; }
 }
 
 @media (max-width: 480px) {
-  .heatmap-container {
-    gap: 4px;
-  }
-  
   .heatmap-day {
     width: 45px;
     height: 45px;
   }
-  
-  .day-label {
-    font-size: 0.65rem;
-  }
-  
-  .intensity-indicator {
-    font-size: 0.75rem;
-  }
+  .day-label { font-size: 0.65rem; }
+  .intensity-indicator { font-size: 0.75rem; }
 }
 
-/* Dark mode support */
+/* Dark mode */
 @media (prefers-color-scheme: dark) {
   .weekly-habit-heatmap {
     background: #2d3748;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   }
-  
   .habit-title {
-    color: #ffffff;
+    color: #f7fafc;
   }
-  
   .intensity-0 {
     background-color: #4a5568;
     color: #a0aec0;
     border-color: #718096;
   }
+  .intensity-1 {
+    background-color: #2f855a;
+    color: #e6fffa;
+    border-color: #38a169;
+  }
+  .intensity-2 {
+    background-color: #276749;
+    color: #e6fffa;
+    border-color: #2f855a;
+  }
+  .intensity-3 {
+    background-color: #22543d;
+    color: #e6fffa;
+    border-color: #276749;
+  }
+  .intensity-4 {
+    background-color: #1c4532;
+    color: #e6fffa;
+    border-color: #22543d;
+  }
 }
+
+.heatmap-day.updated {
+  animation: pulse 0.3s ease-in-out;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1.05); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1.05); }
+}
+
