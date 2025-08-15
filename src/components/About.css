@@ -1,25 +1,72 @@
 .about-container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 2rem auto;
-  padding: 1.5rem;
-  line-height: 1.6;
-  color: var(--text-color, #333);
+  padding: 2rem;
+  background: linear-gradient(135deg, #fff, #ffe6f0);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  line-height: 1.7;
+  color: #333;
+  animation: fadeIn 0.8s ease-in-out;
 }
 
-.about-container h1,
+.about-container h1 {
+  color: #ff4081;
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-weight: bold;
+}
+
 .about-container h2 {
-  color: var(--primary-color, #4cafef);
+  color: #3f51b5;
+  margin-top: 2rem;
+  font-size: 1.5rem;
+  border-left: 4px solid #3f51b5;
+  padding-left: 0.5rem;
+}
+
+.about-container p {
+  font-size: 1.05rem;
+  margin-top: 0.5rem;
 }
 
 .about-container ul {
-  margin-left: 1.2rem;
+  margin: 1rem 0;
+  padding-left: 1.2rem;
+}
+
+.about-container li {
+  margin-bottom: 0.5rem;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.about-container li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  color: #ff4081;
 }
 
 .about-container a {
-  color: var(--link-color, #007bff);
+  color: #ff4081;
   text-decoration: none;
+  font-weight: bold;
 }
 
 .about-container a:hover {
   text-decoration: underline;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

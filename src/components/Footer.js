@@ -13,11 +13,11 @@ export default function Footer() {
  ui-polish
             {/* Contact Section */}
             <div className="contact">
-
+{/* 
                 <div className="headings">
                     <h2>Contact Us</h2>
                     <h3>Every habit counts. Stay committed to your journey</h3>
-                </div>
+                </div> */}
 
                 <div className="connection">
                     {/* Left Text */}
@@ -28,7 +28,7 @@ export default function Footer() {
                     </div>
 
                     {/* Right Form */}
-                    <div className="right">
+                    {/* <div className="right">
                         <form className="contact-form">
                             <label htmlFor="name">Name:</label>
                             <input id="name" type="text" placeholder="Enter your name" />
@@ -41,7 +41,7 @@ export default function Footer() {
 
                             <button type="submit">Contact</button>
                         </form>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>
