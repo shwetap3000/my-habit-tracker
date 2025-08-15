@@ -11,6 +11,7 @@ import About from "./components/About";
 import Foot from "./components/Foot";
 import TrackerCard from "./components/TrackerCard";
 import Contact from "./components/Contact";
+import BackToTop from "./components/BackToTop";
 
 import "./App.css";
 
@@ -169,6 +170,7 @@ function App() {
         {/* Footer always visible */}
         <Footer />
         <Foot />
+        <BackToTop />
       </div>
     </Router>
   );
