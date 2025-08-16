@@ -1,49 +1,9 @@
 .tree-container {
   text-align: center;
   margin-top: 2rem;
-  padding: 1rem; /* gives breathing room */
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  max-width: 300px;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: #fff;
-  transition: background 0.3s, color 0.3s, transform 0.3s;
-}
-
-.dark .tree-container {
-  background-color: #1f2937;
-  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
-  color: #f9fafb;
 }
 
 .tree {
   font-size: 4rem;
   margin: 1rem 0;
-  line-height: 1.2;
-  transition: transform 0.3s ease; /* subtle scaling */
-}
-
-.tree:hover {
-  transform: scale(1.1); /* slight bounce on hover */
-}
-
-/* Optional progress bar */
-.tree-container .progress {
-  height: 0.5rem;
-  width: 100%;
-  background-color: #e0e0e0;
-  border-radius: 9999px;
-  overflow: hidden;
-  margin-top: 1rem;
-}
-
-.dark .tree-container .progress {
-  background-color: #333;
-}
-
-.tree-container .progress > div {
-  height: 100%;
-  background-color: #22c55e;
-  transition: width 0.3s ease;
 }

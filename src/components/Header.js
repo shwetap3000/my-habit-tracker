@@ -6,7 +6,6 @@ import "./Header.css";
 function Header({ toggleDarkMode, darkMode }) {
   const { t, ready } = useTranslation();
 
-  // Return null if translations aren't ready
   if (!ready) return null;
 
 return (

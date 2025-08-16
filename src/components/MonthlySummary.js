@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './MonthlySummary.css'; // We will create this CSS file next
+import './MonthlySummary.css'; // We will update this CSS file next
 
 const MonthlySummary = ({ habitList, completedData }) => {
     // State to keep track of the currently displayed month
@@ -19,7 +19,6 @@ const MonthlySummary = ({ habitList, completedData }) => {
                 let completedCount = 0;
                 let longestStreak = 0;
                 let currentStreak = 0;
-                let missedDays = 0;
 
                 // Loop through each day of the selected month
                 for (let day = 1; day <= daysInMonth; day++) {
@@ -29,16 +28,13 @@ const MonthlySummary = ({ habitList, completedData }) => {
                         completedCount++;
                         currentStreak++;
                     } else {
-                        // If the day was missed, reset the streak
                         if (currentStreak > longestStreak) {
                             longestStreak = currentStreak;
                         }
                         currentStreak = 0;
-                        missedDays++;
                     }
                 }
 
-                // Final check for streak at the end of the month
                 if (currentStreak > longestStreak) {
                     longestStreak = currentStreak;
                 }
@@ -51,7 +47,7 @@ const MonthlySummary = ({ habitList, completedData }) => {
                     completedCount,
                     longestStreak,
                     completionPercentage,
-                    missedDays: daysInMonth - completedCount, // Correctly calculate missed days
+                    missedDays: daysInMonth - completedCount,
                 };
             });
 
@@ -80,8 +76,85 @@ const MonthlySummary = ({ habitList, completedData }) => {
     
     const totalHabitsCompletedInMonth = summaryData.reduce((acc, habit) => acc + habit.completedCount, 0);
 
+    // --- NEW: EXPORT FUNCTIONALITY ---
+
+    // Helper function to calculate the all-time longest streak for a habit
+    const calculateAllTimeLongestStreak = (habitCompletions) => {
+        const dates = Object.keys(habitCompletions).filter(date => habitCompletions[date]).sort();
+        if (dates.length === 0) return 0;
+
+        let longestStreak = 1;
+        let currentStreak = 1;
+
+        for (let i = 1; i < dates.length; i++) {
+            const currentDate = new Date(dates[i]);
+            const prevDate = new Date(dates[i - 1]);
+            
+            const diffTime = Math.abs(currentDate - prevDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            if (diffDays === 1) {
+                currentStreak++;
+            } else {
+                if (currentStreak > longestStreak) {
+                    longestStreak = currentStreak;
+                }
+                currentStreak = 1;
+            }
+        }
+
+        return Math.max(longestStreak, currentStreak);
+    };
+
+    // Prepares data for export
+    const prepareExportData = () => {
+        return habitList.map(habit => {
+            const completions = completedData[habit.key] || {};
+            const completedDates = Object.keys(completions).filter(date => completions[date]).sort();
+            const longestStreak = calculateAllTimeLongestStreak(completions);
+
+            return {
+                habitName: habit.label,
+                completedDates: completedDates,
+                allTimeLongestStreak: longestStreak
+            };
+        });
+    };
+
+    // Generic download handler
+    const downloadFile = (content, fileName, contentType) => {
+        const a = document.createElement("a");
+        const file = new Blob([content], { type: contentType });
+        a.href = URL.createObjectURL(file);
+        a.download = fileName;
+        a.click();
+        URL.revokeObjectURL(a.href);
+    };
+
+    // Handles JSON export
+    const handleExportJSON = () => {
+        const exportData = prepareExportData();
+        const jsonString = JSON.stringify(exportData, null, 2);
+        downloadFile(jsonString, 'habit-data.json', 'application/json');
+    };
+
+    // Handles CSV export
+    const handleExportCSV = () => {
+        const exportData = prepareExportData();
+        let csvContent = "Habit,TotalCompletions,AllTimeLongestStreak,CompletedDates\n";
+        
+        exportData.forEach(habit => {
+            const datesString = `"${habit.completedDates.join(', ')}"`;
+            csvContent += `${habit.habitName},${habit.completedDates.length},${habit.allTimeLongestStreak},${datesString}\n`;
+        });
+
+        downloadFile(csvContent, 'habit-data.csv', 'text/csv');
+    };
+
+
     return (
         <div className="monthly-summary-container">
+            {/* ... (existing month navigator and summary grid code) ... */}
             <h2>Monthly Summary</h2>
             <div className="month-navigator">
                 <button onClick={goToPreviousMonth}>&lt; Previous</button>
@@ -111,6 +184,16 @@ const MonthlySummary = ({ habitList, completedData }) => {
                         </div>
                     </div>
                 ))}
+            </div>
+
+            {/* --- NEW: EXPORT SECTION --- */}
+            <div className="export-section">
+                <h2>Export Your Data</h2>
+                <p>Download all of your habit data in JSON or CSV format.</p>
+                <div className="export-buttons">
+                    <button onClick={handleExportJSON}>Export as JSON</button>
+                    <button onClick={handleExportCSV}>Export as CSV</button>
+                </div>
             </div>
         </div>
     );

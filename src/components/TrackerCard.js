@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import "./TrackerCard.css";
 
@@ -9,27 +9,49 @@ function TrackerCard({
   onCheck,
   weekDates,
   emoji,
-  onEdit
+  onEdit,
+  darkMode,
 }) {
   const { t, ready } = useTranslation();
   const [isEditing, setIsEditing] = useState(false);
-const [inputValue, setInputValue] = useState(habit.label);
+  const [inputValue, setInputValue] = useState(habit?.label || habit);
 
-  // Return null if translations aren't ready or props are missing
-  if (!ready || !weekDates) return null;
+  if (!ready) return null;
 
-  // Helper function to get the three-letter day abbreviation (e.g., "Sun") from a date string
+  // Helper: get day abbreviation from a date string
   const getDayLabel = (dateString) => {
     const date = new Date(dateString);
-    // Adding a time zone offset to prevent the date from shifting due to UTC conversion
-    const userTimezoneOffset = date.getTimezoneOffset() * 60000;
-    const adjustedDate = new Date(date.getTime() + userTimezoneOffset);
-    return adjustedDate.toLocaleDateString("en-US", { weekday: "short" });
+    const offset = date.getTimezoneOffset() * 60000;
+    const adjusted = new Date(date.getTime() + offset);
+    return adjusted.toLocaleDateString("en-US", { weekday: "short" });
   };
 
   return (
     <div className="tracker-card">
       <h3>
+
+
+  // Completion progress
+  const completedCount = Object.values(completedDays).filter(Boolean).length;
+  const totalDays = weekDates ? weekDates.length : 7;
+  const progressPercent = Math.round((completedCount / totalDays) * 100);
+
+  return (
+    <div
+      style={{
+        padding: "1.25rem",
+        borderRadius: "1rem",
+        boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+        transition: "transform 0.3s",
+        backgroundColor: darkMode ? "#1f2937" : "#ffffff",
+        color: darkMode ? "#f9fafb" : "#111827",
+        cursor: "pointer",
+      }}
+      onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-8px)")}
+      onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
+    >
+      {/* Habit name with edit option */}
+      <h3 style={{ fontSize: "1.125rem", fontWeight: 600, marginBottom: "0.75rem" }}>
         {emoji}{" "}
         {isEditing ? (
           <>
@@ -49,8 +71,12 @@ const [inputValue, setInputValue] = useState(habit.label);
           </>
         ) : (
           <>
-            {habit.label}{" "}
-            <button onClick={() => setIsEditing(true)}>Edit</button>
+            {habit?.label || habit}{" "}
+            {onEdit && (
+              <button onClick={() => setIsEditing(true)} style={{ marginLeft: "0.5rem" }}>
+                Edit
+              </button>
+            )}
           </>
         )}
       </h3>
@@ -71,8 +97,58 @@ const [inputValue, setInputValue] = useState(habit.label);
           </label>
         ))}
       </div>
+
+      {/* Days checkboxes */}
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "1rem" }}>
+        {(weekDates || []).map((dateString) => {
+          const label = getDayLabel(dateString);
+          return (
+            <label
+              key={dateString}
+              style={{ display: "flex", alignItems: "center", gap: "0.25rem", cursor: "pointer" }}
+            >
+              <input
+                type="checkbox"
+                checked={!!completedDays[dateString]}
+                onChange={() => onCheck(dateString)}
+                style={{
+                  width: "1.25rem",
+                  height: "1.25rem",
+                  borderRadius: "0.25rem",
+                  border: "1px solid",
+                  borderColor: completedDays[dateString] ? "#22c55e" : "#d1d5db",
+                  backgroundColor: completedDays[dateString] ? "#22c55e" : "#e5e7eb",
+                  transition: "all 0.2s",
+                }}
+              />
+              <span style={{ fontSize: "0.875rem", userSelect: "none" }}>{label}</span>
+            </label>
+          );
+        })}
+      </div>
+
+      {/* Progress bar */}
+      <div
+        style={{
+          height: "0.5rem",
+          width: "100%",
+          backgroundColor: "#d1d5db",
+          borderRadius: "9999px",
+          overflow: "hidden",
+        }}
+      >
+        <div
+          style={{
+            height: "100%",
+            width: `${progressPercent}%`,
+            backgroundColor: "#22c55e",
+            transition: "width 0.3s",
+          }}
+        />
+      </div>
     </div>
   );
 }
 
 export default TrackerCard;
+

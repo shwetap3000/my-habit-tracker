@@ -1,4 +1,4 @@
-.tracker-card {
+.TrackerCard {
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 16px; /* slightly more rounded */
@@ -6,16 +6,28 @@
   margin: 0.5rem;
   width: 280px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.3s ease;
-  cursor: pointer;
+<<<<<<< HEAD
 }
 
-.tracker-card:hover {
+.TrackerCard {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+=======
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.3s ease;
+  cursor: pointer;
+>>>>>>> 404a9d7dbd71eaac01112b2223e02f8e172d99ec
+}
+
+.TrackerCard:hover {
   transform: translateY(-5px) scale(1.02);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   background: linear-gradient(145deg, #fefefe, #f0f0f0);
 }
 
+<<<<<<< HEAD
+.dark .TrackerCard {
+  background-color: #222;
+  border-color: #444;
+=======
 /* Dark mode version */
 .dark .tracker-card {
   background-color: #1f1f1f;
@@ -26,6 +38,7 @@
 .dark .tracker-card:hover {
   background: linear-gradient(145deg, #222, #1a1a1a);
   box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
+>>>>>>> 404a9d7dbd71eaac01112b2223e02f8e172d99ec
 }
 
 .days-row {
@@ -81,7 +94,7 @@ input[type="checkbox"]:checked {
   background-color: #4caf50;
   transition: width 0.3s ease;
 }
-.tracker-card {
+.TrackerCard {
   background-color: var(--card-bg);
   padding: 20px;
   border-radius: 12px;
@@ -90,7 +103,7 @@ input[type="checkbox"]:checked {
   margin-bottom: 20px;
 }
 
-.tracker-card h3 {
+.TrackerCard h3 {
   margin-top: 0;
   margin-bottom: 15px;
   font-size: 1.2rem;
