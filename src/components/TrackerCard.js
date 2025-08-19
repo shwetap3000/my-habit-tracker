@@ -67,10 +67,6 @@ function TrackerCard({
     return adjusted.toLocaleDateString("en-US", { weekday: "short" });
   };
 
-  return (
-    <div className="tracker-card">
-      <h3>
-
 
   // Completion progress
   const completedCount = Object.values(completedDays).filter(Boolean).length;
