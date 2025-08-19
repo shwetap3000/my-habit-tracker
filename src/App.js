@@ -12,14 +12,11 @@ import Foot from './components/Foot';
 // import withI18nReady from "./components/withI18nReady";
 import TrackerCard from './components/TrackerCard';
 import "./App.css";
-import Footer from "./components/Footer";
-import About from "./components/About";
-import Foot from "./components/Foot";
-import TrackerCard from "./components/TrackerCard";
 import Contact from "./components/Contact";
 import BackToTop from "./components/BackToTop";
 
-import "./App.css";
+import Signup from "./components/Signup";
+import Login from "./components/login";
 
 // --- HABIT KEYS + EMOJIS ---
 const habitKeys = [
@@ -170,6 +167,8 @@ function App() {
             />
             <Route path="/About" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/login" element={<Login /> } />
+            <Route path="/signup" element={<Signup />} />
           </Routes>
         </main>
 
@@ -392,7 +391,7 @@ export default App;
 // };
 
 // Wrap App with i18n loader
-export default App;
+// export default App;
 
 // // Wrap App with i18n loader
 // export default App;
