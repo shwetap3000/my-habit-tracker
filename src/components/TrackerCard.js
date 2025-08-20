@@ -88,12 +88,20 @@ function TrackerCard({
         color: darkMode ? "#f9fafb" : "#111827",
         cursor: "pointer",
       }}
-      onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-8px)")}
+      onMouseEnter={(e) =>
+        (e.currentTarget.style.transform = "translateY(-8px)")
+      }
       onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
     > 
 
       {/* Habit name with edit option */}
-      <h3 style={{ fontSize: "1.125rem", fontWeight: 600, marginBottom: "0.75rem" }}>
+      <h3
+        style={{
+          fontSize: "1.125rem",
+          fontWeight: 600,
+          marginBottom: "0.75rem",
+        }}
+      >
         {emoji}{" "}
         {isEditing ? (
           <>
@@ -113,9 +121,13 @@ function TrackerCard({
           </>
         ) : (
           <>
+            {/* {t(habit?.label || habit)} */}
             {habit?.label || habit}{" "}
             {onEdit && (
-              <button onClick={() => setIsEditing(true)} style={{ marginLeft: "0.5rem" }}>
+              <button
+                onClick={() => setIsEditing(true)}
+                style={{ marginLeft: "0.5rem" }}
+              >
                 Edit
               </button>
             )}
@@ -168,7 +180,14 @@ function TrackerCard({
 
 
       {/* Days checkboxes */}
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "1rem" }}>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "0.5rem",
+          marginBottom: "1rem",
+        }}
+      >
         {(weekDates || []).map((dateString) => {
           const label = getDayLabel(dateString);
           const isDone = !!completedDays[dateString];
@@ -176,7 +195,12 @@ function TrackerCard({
           return (
             <label
               key={dateString}
-              style={{ display: "flex", alignItems: "center", gap: "0.25rem", cursor: "pointer" }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "0.25rem",
+                cursor: "pointer",
+              }}
             >
               <input
                 type="checkbox"
@@ -193,7 +217,9 @@ function TrackerCard({
                   transition: "all 0.2s",
                 }}
               />
-              <span style={{ fontSize: "0.875rem", userSelect: "none" }}>{label}</span>
+              <span style={{ fontSize: "0.875rem", userSelect: "none" }}>
+                {label}
+              </span>
             </label>
           );
         })}
