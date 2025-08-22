@@ -43,6 +43,8 @@ const Navbar = () => {
         <li><NavLink to="/" exact onClick={toggleMenu}>Home</NavLink></li>
         <li><NavLink to="/summary" onClick={toggleMenu}>Monthly Summary</NavLink></li>
         <li><NavLink to="/About" onClick={toggleMenu}>About</NavLink></li>
+        <li><NavLink to="/About" onClick={toggleMenu}>About</NavLink></li>
+
         <li><NavLink to="/contact" onClick={toggleMenu}>Contact Us</NavLink></li>
         <li>
           <button onClick={handleReset} className="reset-btn">
